@@ -13,7 +13,7 @@ public class count_lab1{
         int b = 5;
 
         int i;
-        for(i = 0; i < 17; ++i) {
+        for(i = 0; i < 17; i++) {
             x[i] = Math.random() * (b - a) + a;
         }
         /**for(i=0;i<6;i++){
@@ -24,8 +24,8 @@ public class count_lab1{
         }
         System.out.println();
          **/
-        for(i = 0; i < 6; ++i) {
-            for(int j = 0; j < 17; ++j) {
+        for(i = 0; i < 6; i++) {
+            for(int j = 0; j < 17; j++) {
                 if (d[i] == 5) {
                     d1[i][j] = Math.pow(Math.E,Math.pow(Math.pow(Math.E,x[j])*Math.exp(Math.abs(x[j]))+1,3));
                 } else if (d[i] == 7 || d[i] == 11 || d[i] == 15) {
