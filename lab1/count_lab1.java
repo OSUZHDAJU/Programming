@@ -11,6 +11,7 @@ public class count_lab1{
 
         int a = -3;
         int b = 5;
+        double st = 1/3;
 
         int i;
         for(i = 0; i < 17; i++) {
@@ -29,9 +30,9 @@ public class count_lab1{
                 if (d[i] == 5) {
                     d1[i][j] = Math.pow(Math.E,Math.pow(Math.pow(Math.E,x[j])*Math.exp(Math.abs(x[j]))+1,3));
                 } else if (d[i] == 7 || d[i] == 11 || d[i] == 15) {
-                    d1[i][j] = Math.pow(Math.E,Math.pow(Math.E,Math.pow(x[j],1/3)));
+                    d1[i][j] = Math.pow(Math.E,Math.pow(Math.E,Math.pow(x[j],st)));
                 } else {
-                    d1[i][j] = Math.pow(Math.pow(Math.E,Math.pow(Math.asin((x[j]+1)/8),3)),1/3-Math.pow((Math.exp(Math.sqrt(Math.abs(x[j])))-1)/(Math.pow(Math.exp(Math.abs(x[j])),1/3)),Math.pow(Math.E,Math.pow(x[j],3))));
+                    d1[i][j] = Math.pow(Math.pow(Math.E,Math.pow(Math.asin((x[j]+1)/8),3)),st-Math.pow((Math.exp(Math.sqrt(Math.abs(x[j])))-1)/(Math.pow(Math.exp(Math.abs(x[j])),st)),Math.pow(Math.E,Math.pow(x[j],3))));
                 }
 
                 System.out.printf("%.4f", d1[i][j]);
