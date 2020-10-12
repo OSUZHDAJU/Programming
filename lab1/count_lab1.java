@@ -11,7 +11,7 @@ public class count_lab1{
 
         int a = -3;
         int b = 5;
-        double st = 1/3;
+        double st = 1.0/3;
 
         int i;
         for(i = 0; i < 17; i++) {
