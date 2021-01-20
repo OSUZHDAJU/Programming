@@ -31,7 +31,7 @@ public class Place {
         private boolean destiny;
 
 
-        private Destiny(boolean boo){
+        public Destiny(boolean boo){
             destiny = boo;
         }
 

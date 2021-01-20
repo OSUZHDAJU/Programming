@@ -1,27 +1,25 @@
-
 public class Main {
     public static void main(String[] args) {
        Seller seller = new Seller("Продавщица");
        Shop shop = new Shop("магазин разнокалиберных товаров");
-       NeznaikaandKozlik heroes = NeznaikaandKozlik.setHeroes("Незнайка","Козлик");
+       Neznaika neznaika = Neznaika.setNeznaika("Незнайка");
+       Kozlik kozlik = Kozlik.setKozlik("Козлик");
 
        try{
-          if(NeznaikaandKozlik.getHeroes().get1Name() == null || NeznaikaandKozlik.getHeroes().get2Name() == null)
+          if(Neznaika.getHeroes().get1Name() == null || Kozlik.getKozlik().getName() == null)
              throw new WrongInputExeption("Имя одного из персонажей пусто.");
        }
        catch (WrongInputExeption ex){
           ex.printStackTrace();
        }
 
-       heroes.nothere();
-       heroes.movement.godown(new Place("веревке"));
-       heroes.findOneself();
-       heroes.movement.come(new Place("Крученую улицу"),new Place("Змеиный переулок"));
-       heroes.examine(new Place("Змеиный переулок"));
-       heroes.examine2();
-       heroes.examine3();
-       heroes.imagine(new Place("кондитерского магазина"));
-       heroes.movement.comein(new Place("кондитерскую"));
+       neznaika.nothere();
+       neznaika.movement.godown(new Place("веревке"));
+       neznaika.findOneself();
+       neznaika.movement.come(new Place("Крученую улицу"),new Place("Змеиный переулок"));
+       neznaika.examine(new Place("Змеиный переулок"),3);
+       kozlik.imagine(new Place("кондитерского магазина"));
+       neznaika.movement.comein(new Place("кондитерскую"));
 
        try{
          seller.say();
@@ -30,10 +28,10 @@ public class Main {
          ex.printStackTrace();
        }
 
-       heroes.movement.read();
-       heroes.fear(new Place("Поезд на Сан-Комарик"));
-       heroes.find(new Place("небольшую столовую"));
-       heroes.lunch();
-       heroes.buy();
+       neznaika.movement.read();
+       neznaika.fear(new Place("Поезд на Сан-Комарик"));
+       neznaika.find(new Place("небольшую столовую"));
+       neznaika.lunch();
+       neznaika.buy();
     }
 }

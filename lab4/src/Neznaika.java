@@ -1,23 +1,21 @@
 import java.util.Objects;
 
-public class NeznaikaandKozlik {
-    private static NeznaikaandKozlik heroes;
-    private String firstname;
-    private String secondname;
+public class Neznaika {
+    private static Neznaika neznaika;
+    private String name;
 
-    public NeznaikaandKozlik(String name1, String name2) {
-        this.firstname = name1;
-        this.secondname = name2;
+    private Neznaika(String name1) {
+        this.name = name1;
     }
 
-    public static NeznaikaandKozlik getHeroes(){
-        return heroes;
+    public static Neznaika getHeroes(){
+        return neznaika;
     }
 
     MainHeroMovement movement = new MainHeroMovement() {
         @Override
         public void godown(Place place) {
-            System.out.print("Спустившись, " + caseofHeroes("they") + " побежали через" + Place.getDestiny(true).checkpoint());
+            System.out.println("Спустившись, " + caseofHeroes("they") + " побежали через" + Place.getDestiny(true).checkpoint());
         }
 
         @Override
@@ -27,7 +25,7 @@ public class NeznaikaandKozlik {
 
         @Override
         public void comein(Place place) {
-            System.out.println(getallName() + " вошли в " + place.getName() + " и спросили одну из " + Seller.getRod() + ", не знает ли она, куда делся " + Shop.getshortName() + ".");
+            System.out.println(get1Name() +" и "+Kozlik.getKozlik().getName()+ " вошли в " + place.getName() + " и спросили одну из " + Seller.getRod() + ", не знает ли она, куда делся " + Shop.getshortName() + ".");
         }
 
         @Override
@@ -46,25 +44,16 @@ public class NeznaikaandKozlik {
         }
     };
 
-    public static NeznaikaandKozlik setHeroes(String name1, String name2) {
-        if (heroes == null) {
-            heroes = new NeznaikaandKozlik(name1,name2);
+    public static Neznaika setNeznaika(String name1) {
+        if (neznaika == null) {
+            neznaika = new Neznaika(name1);
         }
-        return heroes;
+        return neznaika;
     }
 
     public String get1Name() {
-        return firstname;
+        return name;
     }
-
-    public String get2Name() {
-        return secondname;
-    }
-
-    public String getallName() {
-        return "Незнайка и козлик";
-    }
-
 
     public static String caseofHeroes(String nameofcase) {
         switch (nameofcase) {
@@ -83,6 +72,8 @@ public class NeznaikaandKozlik {
                 return "Незнайки и Козлика";
             case ("they"):
                 return "они";
+            case ("They"):
+                return "Они";
             case ("friends"):
                 return "Друзья";
         }
@@ -101,24 +92,25 @@ public class NeznaikaandKozlik {
         System.out.println("Очутившись на другой улице, " + caseofHeroes("they") + " смешались с толпой и вскоре были далеко от места происшествия.");
     }
 
-    public void examine(Place place) {
-        System.out.print(caseofHeroes("they")+" обследовали весь "+place.getName()+" от начала и до конца");
-    }
-
-    public void examine2(){
-        System.out.print(", а потом в обратном порядке");
-    }
-
-    public void examine3(){
-        System.out.println(", потом прошлись по нему в третий раз.");
-    }
-
-    public void imagine(Place place){
-        System.out.println("Наконец "+get2Name()+" остановился возле "+place.getName()+", которого, как ему показалось, раньше здесь не было.");
+    public void examine(Place place,int count) {
+        switch (count){
+            case(2):
+                System.out.print(caseofHeroes("They")+" обследовали весь "+place.getName()+" от начала и до конца");
+                System.out.println(", а потом в обратном порядке.");
+                break;
+            case(3):
+                System.out.print(caseofHeroes("They")+" обследовали весь "+place.getName()+" от начала и до конца");
+                System.out.print(", а потом в обратном порядке");
+                System.out.println(", потом прошлись по нему в третий раз.");
+                break;
+            default:
+                System.out.println(caseofHeroes("They")+" обследовали весь "+place.getName()+" от начала и до конца.");
+                break;
+        }
     }
 
     public void fear(Place place){
-        System.out.println(place.getName()+" отходил лишь в конце дня, но "+getallName()+" боялись возвращаться в гостиницу, где они могли попасть в руки невольно обманутых ими акционеров.");
+        System.out.println(place.getName()+" отходил лишь в конце дня, но "+get1Name() +" и "+Kozlik.getKozlik().getName()+" боялись возвращаться в гостиницу, где они могли попасть в руки невольно обманутых ими акционеров.");
     }
 
     public void find(Place place){
@@ -134,20 +126,11 @@ public class NeznaikaandKozlik {
     }
 
     public String toString(){
-        return "NeznaikaandKozlik{" + "firstname='" + firstname + "' , " + "secondname='" + secondname + "'" + '}' ;
+        return "Neznaika{" + "name='" + name + '}' ;
     }
-
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        NeznaikaandKozlik heroes = (NeznaikaandKozlik) obj;
-        return Objects.equals(firstname, heroes.firstname);
-
-    }
-
 
     public int hashCode() {
-        return Objects.hash(firstname);
+        return Objects.hash(name);
     }
 
 
