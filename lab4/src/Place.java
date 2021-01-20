@@ -25,11 +25,19 @@ public class Place {
 
     public static Destiny getDestiny(boolean boo){return new Place.Destiny(boo);}
 
+
+
     public static class Destiny{
         private boolean destiny;
 
-        private Destiny(boolean t){
-            destiny = t;
+
+        private Destiny(boolean boo){
+            destiny = boo;
+        }
+
+        public void setname(String str){
+            Place kozlik = new Place("");
+            kozlik.name = str;
         }
 
         public String checkpoint(){

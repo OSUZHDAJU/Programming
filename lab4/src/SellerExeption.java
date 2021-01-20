@@ -1,4 +1,4 @@
-public class SellerExeption extends RuntimeException {
+public class SellerExeption extends Error {
     public SellerExeption(String string){
         super(string);
     }

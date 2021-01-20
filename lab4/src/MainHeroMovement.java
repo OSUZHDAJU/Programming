@@ -3,6 +3,5 @@ public interface MainHeroMovement {
     void godown(Place place);
     void comein(Place place);
     void read();
-    void lunch();
 
 }

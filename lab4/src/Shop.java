@@ -24,7 +24,7 @@ public class Shop extends MySubject {
         return super.toString();
     }
 
-
+    @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
