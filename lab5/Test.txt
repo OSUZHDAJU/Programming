@@ -1,0 +1,7 @@
+help
+min_by_difficulty
+info
+show
+clear
+show
+exit
