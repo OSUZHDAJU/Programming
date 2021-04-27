@@ -3,10 +3,14 @@ package Managers;
 import data.Difficulty;
 import data.LabWork;
 
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayDeque;
+import java.util.*;
 
+/**
+ * Класс отвечающий за работу с коллекцией.
+ */
 public class CollectionManager {
     private ArrayDeque<LabWork> collection = new ArrayDeque<>();
     private FileManager fileManager;
@@ -22,11 +26,18 @@ public class CollectionManager {
         return LocalDateTime.now();
     }
 
+    /**
+     * @return Дату инициализации коллекции.
+     */
     public String getInitializationTime(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return initializationTime.format(formatter);
     }
 
+    /**
+     * @param max - значение ниже которого должны быть значения элементов.
+     * @return Количество элементов, значение поля minimalPoint которых меньше введённого.
+     */
     public long countLessThanMinimalPoint(long max){
         long count = 0;
         for (LabWork labWork : collection){
@@ -45,6 +56,9 @@ public class CollectionManager {
         return collection.getClass().getTypeName();
     }
 
+    /**
+     * @return Элемент, значение поля Difficulty которого минимально.
+     */
     public LabWork getMinByDifficulty(){
         boolean boo = false;
         LabWork min = null;
@@ -75,19 +89,32 @@ public class CollectionManager {
         return min;
     }
 
+    /**
+     * @return количество элементов в коллекции.
+     */
     public int getSize(){
         return collection.size();
     }
 
+    /**
+     * @return Первый элемент коллекции.
+     */
     public LabWork firstElement(){
         if (collection.isEmpty()) return null;
         return collection.getFirst();
     }
 
+    /**
+     * Добавляет элемент в коллекцию.
+     * @param labWork - элемент который нужно добавить.
+     */
     public void addToCollection(LabWork labWork){
         collection.add(labWork);
     }
 
+    /**
+     * @return id нового элемента
+     */
     public Long generateNextId(){
         if (collection.isEmpty()) {
             return 1L;
@@ -96,6 +123,10 @@ public class CollectionManager {
         return collection.getLast().getId()+1;
     }
 
+    /**
+     * Удаляет элемент по его id.
+     * @param id
+     */
     public void removeById(long id){
         for (LabWork labWork: collection){
             if (labWork.getId() == id){
@@ -105,12 +136,15 @@ public class CollectionManager {
         }
     }
 
+    /**
+     * Сортирует коллекцию по увеличению id.
+     */
     public void sortById(){
         long lastMin = 0L;
         long min;
         long sortId = 0L;
         for (int i = 0; i < getSize(); i++) {
-            min = 9223372036854775807L;
+            min = Long.MAX_VALUE;
             for (LabWork labWork : collection){
                 long id1 = labWork.getId();
                 if (id1 <= min & id1 > lastMin){
@@ -138,25 +172,35 @@ public class CollectionManager {
         }
     }
 
-    public void sort(){
-        for (int i = 0; i < getSize(); i++){
-            for (LabWork labWork : collection){
-                
+    /**
+     * Сортирует коллекцию по умолчанию.
+     */
+    public void sort() {
+        try {
+            ArrayList<LabWork> labWorkList = new ArrayList<LabWork>();
+            labWorkList.addAll(collection);
+            Collections.sort(labWorkList);
+            collection.clear();
+            for (LabWork labWork : labWorkList){
+                collection.add(labWork);
             }
+        } catch (NullPointerException e){
+            System.out.println("Коллекция пуста!");
         }
     }
 
-
+    /**
+     * Очищает коллекцию.
+     */
     public void clearCollection(){
         collection.clear();
     }
 
+    /**
+     * Загружает коллекцию из файла.
+     */
     private void loadCollection(){
         collection = fileManager.fileRead();
     }
 
-    @Override
-    public String toString() {
-        return "CollectionManager(класс для работы с коллекцией)";
-    }
 }

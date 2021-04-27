@@ -4,6 +4,9 @@ import Exceptions.WrongArgument;
 import Managers.CollectionManager;
 import Managers.CommandsManager;
 
+/**
+ * Команда 'count_less_than_minimal_point'. Выводит количество элементов, значение поля minimalPoint которых меньше заданного.
+ */
 public class CountLessThanMinimalPoint extends Command{
     private CollectionManager collectionManager;
 
@@ -12,6 +15,11 @@ public class CountLessThanMinimalPoint extends Command{
         this.collectionManager = collectionManager;
     }
 
+    /**
+     * Выполняет команду.
+     * @param arg - аргументы пользователя
+     * @return Статус команды.
+     */
     public boolean execute(String arg){
         try{
             if(arg.isEmpty()) throw new WrongArgument();

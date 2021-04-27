@@ -14,6 +14,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * Класс отвечающий за работу с юзером.
+ */
 public class UserManager {
     private final float max_y = 640;
     private final long min_minimalPoint = 0;
@@ -387,10 +390,6 @@ public class UserManager {
         return z;
     }
 
-    @Override
-    public String toString() {
-        return "UserManager (класс для запросов пользователю)";
-    }
 }
 
 

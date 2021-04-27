@@ -7,6 +7,12 @@ import Managers.UserManager;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * Главный класс приложения. Создаёт экземпляры команд и заупскает приложение.
+ * @author Васильков Никита
+ */
+
+
 public class ConsoleApplication {
     public static void main(String[] args) {
         Scanner userScanner = new Scanner(System.in);
@@ -18,6 +24,7 @@ public class ConsoleApplication {
         FileManager fileManager = new FileManager(fileName);
         CollectionManager collectionManager = new CollectionManager(fileManager);
         Add add = new Add(collectionManager, userManager);
+        AddIfMax addIfMax = new AddIfMax(collectionManager,add,userManager);
         Clear clear = new Clear(collectionManager);
         CountLessThanMinimalPoint countLessThanMinimalPoint = new CountLessThanMinimalPoint(collectionManager);
         ExecuteScript executeScript = new ExecuteScript();
@@ -28,9 +35,11 @@ public class ConsoleApplication {
         Info info = new Info(collectionManager);
         MinByDifficulty minByDifficulty = new MinByDifficulty(collectionManager);
         RemoveById removeById = new RemoveById(collectionManager);
+        Save save = new Save(fileManager,collectionManager);
         Show show = new Show(collectionManager);
+        PrintAscending printAscending = new PrintAscending(collectionManager, show);
         Update update = new Update(collectionManager, userManager);
-        CommandsManager commandsManager = new CommandsManager(add,clear,countLessThanMinimalPoint,executeScript,exit,head,help,history,info,minByDifficulty,removeById,show,update,userManager);
+        CommandsManager commandsManager = new CommandsManager(add,addIfMax,clear,countLessThanMinimalPoint,executeScript,exit,head,help,history,info,minByDifficulty,printAscending,removeById,save,show,update,userManager);
         System.out.println("Добро пожаловать! Для показа справки по всем доступным командам введите 'help'. ");
 
         try{

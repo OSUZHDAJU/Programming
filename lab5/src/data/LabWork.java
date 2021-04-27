@@ -3,6 +3,9 @@ package data;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Главный тип объекта, хранящегося в коллекции.
+ */
 public class LabWork implements Comparable<LabWork> {
     private Long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой

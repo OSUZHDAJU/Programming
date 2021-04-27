@@ -1,10 +1,17 @@
 package data;
 
+/**
+ * Перечисление цветов глаз.
+ */
 public enum EyeColor {
     BLUE,
     YELLOW,
     ORANGE;
 
+    /**
+     * Создаёт список строковых констант цветов глаз.
+     * @return Строку со всеми константами.
+     */
     public static String list(){
         String list = "";
         for (EyeColor eyeColor : values()){

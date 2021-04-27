@@ -9,6 +9,9 @@ import data.LabWork;
 
 import java.time.LocalDateTime;
 
+/**
+ * Команда 'add'. Добавляет новый элемнт в коллекцию.
+ */
 public class Add extends Command{
     private CollectionManager collectionManager;
     private UserManager userManager;
@@ -19,6 +22,11 @@ public class Add extends Command{
         this.userManager = userManager;
     }
 
+    /**
+     * Выполняет команду.
+     * @param arg - аргументы пользователя
+     * @return Статус команды.
+     */
     public boolean execute (String arg){
         try{
             if(!arg.isEmpty()) throw new WrongArgument();

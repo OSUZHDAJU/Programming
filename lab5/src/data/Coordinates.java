@@ -2,6 +2,9 @@ package data;
 
 import java.util.Objects;
 
+/**
+ * Тип описывающий местоположение главного объекта.
+ */
 public class Coordinates {
     private long x;
     private float y; //Максимальное значение поля: 640

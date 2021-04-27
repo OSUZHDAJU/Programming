@@ -2,6 +2,9 @@ package Commands;
 
 import java.util.Objects;
 
+/**
+ * Абстрактный класс для всех команд.
+ */
 public abstract class Command {
     private String name;
     private String description;

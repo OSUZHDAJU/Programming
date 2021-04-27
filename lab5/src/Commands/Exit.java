@@ -2,11 +2,19 @@ package Commands;
 
 import Exceptions.WrongArgument;
 
+/**
+ * Команда 'exit'. Завершает программу(без сохранения коллекции).
+ */
 public class Exit extends Command{
     public Exit(){
         super("exit","завершить программу(без сохранения коллекции)");
     }
 
+    /**
+     * Выполняет команду.
+     * @param arg - аргументы пользователя
+     * @return Статус команды.
+     */
     public boolean execute(String arg){
         try{
             if (!arg.isEmpty()) throw new WrongArgument();

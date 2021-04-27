@@ -5,6 +5,9 @@ import Managers.CollectionManager;
 import Managers.CommandsManager;
 import data.LabWork;
 
+/**
+ * Команда 'head'. Выводит первый элемент коллекции.
+ */
 public class Head extends Command{
     private CollectionManager collectionManager;
 
@@ -13,6 +16,11 @@ public class Head extends Command{
         this.collectionManager = collectionManager;
     }
 
+    /**
+     * Выполняет команду.
+     * @param arg - аргументы пользователя
+     * @return Статус команды.
+     */
     public boolean execute(String arg){
         try{
             if (!arg.isEmpty()) throw new WrongArgument();

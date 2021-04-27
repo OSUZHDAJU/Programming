@@ -8,11 +8,15 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * Класс отвечающий за работу с командами.
+ */
 public class CommandsManager {
     private int historySize = 7;
     private String[] listHistory = new String[historySize];
     private List<Command> commands = new ArrayList<>();
     private Command add;
+    private Command addIfMax;
     private Command clear;
     private Command countLessThanMinimalPoint;
     private Command executeScript;
@@ -22,16 +26,20 @@ public class CommandsManager {
     private Command history;
     private Command info;
     private Command minByDifficulty;
+    private Command printAscending;
     private Command removeById;
+    private Command save;
     private Command show;
     private Command update;
     private UserManager userManager;
 
-    public CommandsManager(Command add, Command clear, Command countLessThanMinimalPoint, Command executeScript,
+    public CommandsManager(Command add, Command addIfMax,Command clear, Command countLessThanMinimalPoint, Command executeScript,
                            Command exit, Command head, Command help, Command history, Command info, Command minByDifficulty,
-                           Command removeById, Command show, Command update , UserManager userManager) {
+                           Command printAscending,Command removeById, Command save , Command show, Command update , UserManager userManager) {
         this.add = add;
         commands.add(add);
+        this.addIfMax = addIfMax;
+        commands.add(addIfMax);
         this.clear = clear;
         commands.add(clear);
         this.countLessThanMinimalPoint = countLessThanMinimalPoint;
@@ -50,8 +58,12 @@ public class CommandsManager {
         commands.add(info);
         this.minByDifficulty = minByDifficulty;
         commands.add(minByDifficulty);
+        this.printAscending = printAscending;
+        commands.add(printAscending);
         this.removeById = removeById;
         commands.add(removeById);
+        this.save = save;
+        commands.add(save);
         this.show = show;
         commands.add(show);
         this.update = update;
@@ -68,6 +80,10 @@ public class CommandsManager {
         return commands;
     }
 
+    /**
+     * Добавляет команду в историю.
+     * @param command - команда, которую нужно добавить.
+     */
     public void addToHistory(String command){
         for (Command command1 : commands){
             if (command1.getName().split(" ")[0].equals(command)){
@@ -79,6 +95,10 @@ public class CommandsManager {
         }
     }
 
+    /**
+     * Срабатывает, если введённой команды нет в программе.
+     * @return Статус команды = false.
+     */
     public boolean noCommand(String command){
         System.out.println("Нет команды '"+command+"'. Введите 'help' для вывода списка доступных команд.");
         return false;
@@ -87,6 +107,8 @@ public class CommandsManager {
     public boolean add(String arg){
         return add.execute(arg);
     }
+
+    public boolean addIfMax(String arg){return addIfMax.execute(arg);}
 
     public boolean clear(String arg){
         return clear.execute(arg);
@@ -106,6 +128,10 @@ public class CommandsManager {
         return head.execute(arg);
     }
 
+    /**
+     * Выводит список доступных команд.
+     * @return Статус команды.
+     */
     public boolean help(String arg){
         if (help.execute(arg)){
             System.out.println("Список доступных команд:");
@@ -116,6 +142,10 @@ public class CommandsManager {
         } else return false;
     }
 
+    /**
+     * Выводит историю команд.
+     * @return Статус команды
+     */
     public boolean history(String arg){
         if (history.execute(arg)){
             System.out.println("Последние использованные команды:");
@@ -134,9 +164,13 @@ public class CommandsManager {
         return minByDifficulty.execute(arg);
     }
 
+    public boolean printAscending(String arg){return printAscending.execute(arg);}
+
     public boolean removeById(String arg){
         return removeById.execute(arg);
     }
+
+    public boolean save(String arg){return save.execute(arg);}
 
     public boolean show(String arg){
         return show.execute(arg);
@@ -146,12 +180,20 @@ public class CommandsManager {
         return update.execute(arg);
     }
 
+    /**
+     * Позволяет выполнять команды.
+     * @param nowCommand - команда, введённая пользователем.
+     * @return статус работы программы.
+     */
     public int launchCommand(String[] nowCommand){
         switch (nowCommand[0]){
             case "":
                 break;
             case "add":
                 if (!add(nowCommand[1])) return 1;
+                break;
+            case "add_if_max":
+                if (!addIfMax(nowCommand[1])) return 1;
                 break;
             case "clear":
                 if (!clear(nowCommand[1])) return 1;
@@ -177,8 +219,14 @@ public class CommandsManager {
             case "min_by_difficulty":
                 if (!minByDifficulty(nowCommand[1])) return 1;
                 break;
+            case "print_ascending":
+                if (!printAscending(nowCommand[1])) return 1;
+                break;
             case "remove_by_id":
                 if (!removeById(nowCommand[1])) return 1;
+                break;
+            case "save":
+                if (!save(nowCommand[1])) return 1;
                 break;
             case "show":
                 if (!show(nowCommand[1])) return 1;
@@ -195,6 +243,11 @@ public class CommandsManager {
         return 0;
     }
 
+    /**
+     * Позволяет исполнять скрипт.
+     * @param arg - имя файла, из которого нужно исполнить скрипт.
+     * @return статус работы скрипта.
+     */
     public int script(String arg){
         String[] nowCommand = {"",""};
         int status;
@@ -220,8 +273,4 @@ public class CommandsManager {
         return 1;
     }
 
-    @Override
-    public String toString() {
-        return "CommandsManager(класс для работы с командами)";
-    }
 }

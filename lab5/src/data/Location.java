@@ -2,6 +2,9 @@ package data;
 
 import java.util.Objects;
 
+/**
+ * Тип, описывающий местоположение автора.
+ */
 public class Location {
     private long x;
     private Double y; //Поле не может быть null

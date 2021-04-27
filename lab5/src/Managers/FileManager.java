@@ -4,12 +4,16 @@ import data.*;
 
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayDeque;
 
+/**
+ * Класс отвечающий за раюоту с файлом.
+ */
 public class FileManager {
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -19,6 +23,10 @@ public class FileManager {
         this.fileName = fileName;
     }
 
+    /**
+     * Читает коллекцию из файла.
+     * @return Коллекцию типа LabWork.
+     */
     public ArrayDeque<LabWork> fileRead() {
         if (fileName != null) {
             try {
@@ -133,22 +141,89 @@ public class FileManager {
         return new ArrayDeque<LabWork>();
     }
 
+    /**
+     * Приводит числа к двузначному виду.
+     * @return Двузначное число.
+     */
+    private static String formate(int valor) {
+        return (valor < 10 ? "0" : "") + valor;
+    }
+
+    /**
+     * Записывает коллекцию в файл.
+     * @param collection - коллекция, которую нужно записать.
+     * @return Статус записи коллекции.
+     */
     public boolean fileWrite(ArrayDeque<LabWork> collection){
-        String line;
-        line = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
-        for (LabWork labWork : collection){
-            line = "<LabWork>";
-
-            line = "<id>"+labWork.getId()+"</id>";
-
-            line = "<name>"+labWork.getName()+"</name>";
-
-            line = "<Coordinates>";
-        } return false;
+        try {
+            File xmlFile = new File(fileName);
+            if (!xmlFile.canWrite()) throw new Exception();
+            Writer writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(xmlFile) , "utf-8"));
+            String line = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
+            writer.write(line+System.lineSeparator());
+            for (LabWork labWork : collection) {
+                line = "<LabWork>";
+                writer.write(line+System.lineSeparator());
+                line = "<id>" + String.valueOf(labWork.getId()) + "</id>";
+                writer.write(line+System.lineSeparator());
+                line = "<name>" + String.valueOf(labWork.getName()) + "</name>";
+                writer.write(line+System.lineSeparator());
+                line = "<Coordinates>";
+                writer.write(line+System.lineSeparator());
+                line = "<x>"+String.valueOf(labWork.getCoordinates().getX())+"</x>";
+                writer.write(line+System.lineSeparator());
+                line = "<y>"+String.valueOf(labWork.getCoordinates().getY())+"</y>";
+                writer.write(line+System.lineSeparator());
+                line = "</Coordinates>";
+                writer.write(line+System.lineSeparator());
+                line = "<creationDate>"+labWork.getCreationDate().getYear()+"-"+formate(labWork.getCreationDate().getMonthValue())+"-"+formate(labWork.getCreationDate().getDayOfMonth())+"</creationDate>";
+                //line = ""+labWork.getCreationDate();
+                writer.write(line+System.lineSeparator());
+                line = "<minimalPoint>"+String.valueOf(labWork.getMinimalPoint())+"</minimalPoint>";
+                writer.write(line+System.lineSeparator());
+                line = "<description>"+labWork.getDescription() +"</description>";
+                writer.write(line+System.lineSeparator());
+                line = "<tunedInWorks>"+String.valueOf(labWork.getTunedInWorks())+"</tunedInWorks>";
+                writer.write(line+System.lineSeparator());
+                line = "<difficulty>"+labWork.getDifficulty().toString()+"</difficulty>";
+                writer.write(line+System.lineSeparator());
+                line = "<author>";
+                writer.write(line+System.lineSeparator());
+                line = "<name>"+labWork.getAuthor().getName()+"</name>";
+                writer.write(line+System.lineSeparator());
+                line = "<birthday>"+labWork.getAuthor().getBirthday().getYear()+"-"+formate(labWork.getAuthor().getBirthday().getMonthValue())+"-"+formate(labWork.getAuthor().getBirthday().getDayOfMonth())+"</birthday>";
+                writer.write(line+System.lineSeparator());
+                line = "<eyeColor>"+labWork.getAuthor().getEyeColor().toString()+"</eyeColor>";
+                writer.write(line+System.lineSeparator());
+                line = "<hairColor>"+labWork.getAuthor().getHairColor().toString()+"</hairColor>";
+                writer.write(line+System.lineSeparator());
+                line = "<nationality>"+labWork.getAuthor().getNationality().toString()+"</nationality>";
+                writer.write(line+System.lineSeparator());
+                line = "<location>";
+                writer.write(line+System.lineSeparator());
+                line = "<x>"+String.valueOf(labWork.getAuthor().getLocation().getX())+"</x>";
+                writer.write(line+System.lineSeparator());
+                line = "<y>"+String.valueOf(labWork.getAuthor().getLocation().getY())+"</y>";
+                writer.write(line+System.lineSeparator());
+                line = "<z>"+String.valueOf(labWork.getAuthor().getLocation().getZ())+"</z>";
+                writer.write(line+System.lineSeparator());
+                line = "</location>";
+                writer.write(line+System.lineSeparator());
+                line = "</author>";
+                writer.write(line+System.lineSeparator());
+                line = "</LabWork>";
+                writer.write(line+System.lineSeparator());
+            }
+            writer.close();
+            return true;
+        } catch (IOException e){
+            System.out.println("Ошибка ввода-вывода!");
+        }
+        catch (Exception e){
+            System.out.println("Файл недоступен для записи.");
+        }
+        return false;
     }
 
-    @Override
-    public String toString() {
-        return "FileManager(класс для работы с файлом)";
-    }
 }

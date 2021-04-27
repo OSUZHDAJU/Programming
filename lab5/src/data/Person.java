@@ -3,6 +3,9 @@ package data;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Тип описывающий автора.
+ */
 public class Person {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private java.time.LocalDateTime birthday; //Поле не может быть null
@@ -68,4 +71,6 @@ public class Person {
                 ", location=" + location +
                 '}';
     }
+
+
 }
